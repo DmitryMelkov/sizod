@@ -1,0 +1,19 @@
+{
+  "name": "sizod",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.21.1",
+    "modbus-serial": "^8.0.17",
+    "mongodb": "^6.9.0",
+    "nodemon": "^3.1.7"
+  }
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div style="display: flex;">
+    <span style="margin-right: 10px;">Температура помещения:</span>
+    <span id="mongo-value"></span>
+  </div>
+
+  <script>
+    setInterval(function () {
+      fetch('/api/mongo-value')
+        .then((response) => response.json())
+        .then((data) => {
+          document.getElementById('mongo-value').innerText = data.value.toFixed(2);
+        })
+        .catch((error) => console.error('Ошибка:', error));
+    }, 5000); // Интервал обновления 5 секунд
+  </script>
+</body>
+
+</html>
