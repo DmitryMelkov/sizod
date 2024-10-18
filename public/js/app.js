@@ -8,6 +8,7 @@ async function fetchData() {
     document.getElementById('left-ski').textContent = data.leftSki !== undefined ? data.leftSki : 'Нет данных';
     document.getElementById('right-ski').textContent = data.rightSki !== undefined ? data.rightSki : 'Нет данных';
     document.getElementById('defect').textContent = data.defect !== undefined ? data.defect : 'Нет данных';
+    document.getElementById('shift-time').textContent = data.shiftTime !== undefined ? data.shiftTime : 'Нет данных';
   } catch (error) {
     console.error('Ошибка при получении данных:', error);
   }
