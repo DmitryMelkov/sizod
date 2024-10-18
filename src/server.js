@@ -13,41 +13,43 @@ const modbusClient = new ModbusRTU();
 // Создаем клиент MongoDB
 const mongoClient = new MongoClient('mongodb://localhost:27017/');
 
-const dbName = 'test-termodat';
-const collectionName = 'temperature_data';
+const dbName = 'sizod';
+const collectionName = 'DOT-EKO';
 const db = mongoClient.db(dbName);
 const collection = db.collection(collectionName);
 
 // Подключение к устройству ModbusRTU
-const port = 'COM4';
-const baudRate = 9600;
+const port = 'COM6';
+const baudRate = 57600;
 
 async function readData() {
   try {
     await modbusClient.connectRTUBuffered(port, { baudRate: baudRate });
-    modbusClient.setID(0x03);
-    console.log('Подключено к устройству с адресом 0x03');
+    modbusClient.setID(0x01);
+    console.log('Подключено к устройству с адресом 0x01');
 
     // Устанавливаем интервал опроса
     setInterval(async () => {
       try {
-        // Чтение данных (например, 1 регистр с адресом 0x0000)
-        const data = await modbusClient.readHoldingRegisters(0x0000, 1);
-        // Преобразование данных из int16 в int32, еслинеобходимо
-        const int32Value = data.data[0]; // Пример преобразования
-        const modifiedValue = int32Value * 0.1; // Умножаем на 0.1
-        console.log('Значение температуры:', modifiedValue);
+        const rightSkiData = await modbusClient.readHoldingRegisters(0x0002, 1);
+        const leftSkiData = await modbusClient.readHoldingRegisters(0x0004, 1);
+        const defectData = await modbusClient.readHoldingRegisters(0x0000, 1);
 
-        // Запись данных в базу данных
+        const rightSkiValue = rightSkiData.data[0];
+        const leftSkiValue = leftSkiData.data[0];
+        const defectValue = defectData.data[0];
+
         const doc = {
           timestamp: new Date(),
-          value: modifiedValue,
+          rightSki: rightSkiValue,
+          leftSki: leftSkiValue,
+          defect: defectValue,
         };
         await collection.insertOne(doc);
       } catch (err) {
         console.error('Ошибка при чтении данных:', err);
       }
-    }, 10000);
+    }, 5000);
   } catch (err) {
     console.error('Ошибка при подключении:', err);
   }
@@ -57,13 +59,23 @@ async function readData() {
 app.get('/api/mongo-value', async (req, res) => {
   try {
     const data = await collection.find().sort({ timestamp: -1 }).limit(1).toArray();
-    res.json({ value: data[0].value });
+    if (data.length > 0) {
+      res.json({
+        rightSki: data[0].rightSki,
+        leftSki: data[0].leftSki,
+        defect: data[0].defect,
+      });
+    } else {
+      res.json({ message: 'Нет данных' });
+    }
   } catch (err) {
     console.error(err);
     res.status(500).send('Ошибка получения данных');
   }
 });
 
+// Указываем папку для статических файлов
+app.use(express.static(join(__dirname, '../public')));
 
 app.get('/', (req, res) => {
   const indexPath = join(__dirname, '../public', 'index.html');

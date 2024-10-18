@@ -5,24 +5,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-  <div style="display: flex;">
-    <span style="margin-right: 10px;">Температура помещения:</span>
-    <span id="mongo-value"></span>
+  <div class="container">
+    <div class="content">
+      <span class="content__span">Лыжа левая:</span>
+      <span class="content__span-val" id="left-ski"></span>
+    </div>
+    <div class="content">
+      <span class="content__span">Лыжа правая:</span>
+      <span class="content__span-val" id="right-ski"></span>
+    </div>
+    <div class="content">
+      <span class="content__span">Брак:</span>
+      <span class="content__span-val" id="defect"></span>
+    </div>
   </div>
 
-  <script>
-    setInterval(function () {
-      fetch('/api/mongo-value')
-        .then((response) => response.json())
-        .then((data) => {
-          document.getElementById('mongo-value').innerText = data.value.toFixed(2);
-        })
-        .catch((error) => console.error('Ошибка:', error));
-    }, 5000); // Интервал обновления 5 секунд
-  </script>
+  <script src="js/app.js"></script>
 </body>
 
 </html>
