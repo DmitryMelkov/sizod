@@ -59,13 +59,30 @@ async function readData() {
         workTimeBuffer.writeUInt16LE(workTimeData.data[1], 2);
         const workTimeValue = workTimeBuffer.readFloatLE(0);
 
-        
-        // oкругление до сотых
+        // Округление до сотых
         const roundedShiftTime = parseFloat(shiftTimeValue.toFixed(2));
         const roundedWorkTime = parseFloat(workTimeValue.toFixed(2));
 
         // Сумма левой и правой лыжи
         const totalSkiValue = rightSkiValue + leftSkiValue;
+
+        // Получаем последнюю запись из базы данных
+        const lastRecord = await collection.find().sort({ timestamp: -1 }).limit(1).toArray();
+        let mode = 'Не в работе'; // По умолчанию
+
+        if (lastRecord.length > 0) {
+          const lastTotalSkiValue = lastRecord[0].totalSki;
+          const lastTimestamp = lastRecord[0].timestamp;
+          const currentTime = new Date();
+
+          // Проверяем, прошло ли более одной минуты
+          if (currentTime - lastTimestamp <= 60 * 1000) {
+            // Проверяем, изменилось ли значение суммы лыж
+            if (lastTotalSkiValue !== totalSkiValue) {
+              mode = 'В работе';
+            }
+          }
+        }
 
         // Запись данных в MongoDB
         const doc = {
@@ -79,6 +96,7 @@ async function readData() {
           shiftTime: roundedShiftTime,
           workTime: roundedWorkTime,
           totalSki: totalSkiValue,
+          mode: mode, 
         };
 
         await collection.insertOne(doc);
@@ -108,6 +126,7 @@ app.get('/api/mongo-value', async (req, res) => {
         shiftTime: data[0].shiftTime,
         workTime: data[0].workTime,
         totalSki: data[0].totalSki,
+        mode: data[0].mode,
       });
     } else {
       res.json({ message: 'Нет данных' });

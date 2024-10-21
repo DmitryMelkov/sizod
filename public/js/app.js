@@ -5,12 +5,22 @@ async function fetchData() {
       throw new Error('Ошибка сети');
     }
     const data = await response.json();
-    document.getElementById('left-ski').textContent = data.leftSki !== undefined ? data.leftSki : 'Нет данных';
-    document.getElementById('right-ski').textContent = data.rightSki !== undefined ? data.rightSki : 'Нет данных';
-    document.getElementById('defect').textContent = data.defect !== undefined ? data.defect : 'Нет данных';
-    document.getElementById('shift-time').textContent = data.shiftTime !== undefined ? data.shiftTime : 'Нет данных';
-    document.getElementById('total-ski').textContent = data.totalSki !== undefined ? data.totalSki : 'Нет данных';
 
+    // Создаем переменные для элементов
+    const leftSkiElement = document.getElementById('left-ski');
+    const rightSkiElement = document.getElementById('right-ski');
+    const defectElement = document.getElementById('defect');
+    const shiftTimeElement = document.getElementById('shift-time');
+    const totalSkiElement = document.getElementById('total-ski');
+    const modeElement = document.getElementById('mode');
+
+    // Обновляем содержимое элементов
+    leftSkiElement.textContent = data.leftSki !== undefined ? data.leftSki : 'Нет данных';
+    rightSkiElement.textContent = data.rightSki !== undefined ? data.rightSki : 'Нет данных';
+    defectElement.textContent = data.defect !== undefined ? data.defect : 'Нет данных';
+    shiftTimeElement.textContent = data.shiftTime !== undefined ? data.shiftTime : 'Нет данных';
+    totalSkiElement.textContent = data.totalSki !== undefined ? data.totalSki : 'Нет данных';
+    modeElement.textContent = data.mode !== undefined ? data.mode : 'Нет данных';
   } catch (error) {
     console.error('Ошибка при получении данных:', error);
   }
