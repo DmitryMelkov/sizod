@@ -36,10 +36,10 @@ async function readData() {
         const defectData = await modbusClient.readHoldingRegisters(0x0000, 1);
         const defectReportData = await modbusClient.readHoldingRegisters(0x0006, 1);
         const rightSkiReportData = await modbusClient.readHoldingRegisters(0x0008, 1);
-        const leftSkiReportData = await modbusClient.readHoldingRegisters(0x000A, 1);
+        const leftSkiReportData = await modbusClient.readHoldingRegisters(0x000a, 1);
 
         // Читаем 2 регистра для shiftTime и workTime
-        const shiftTimeData = await modbusClient.readHoldingRegisters(0x000E, 2);
+        const shiftTimeData = await modbusClient.readHoldingRegisters(0x000e, 2);
         const workTimeData = await modbusClient.readHoldingRegisters(0x0012, 2);
 
         const rightSkiValue = rightSkiData.data[0];
@@ -53,15 +53,19 @@ async function readData() {
         const shiftTimeBuffer = Buffer.alloc(4);
         shiftTimeBuffer.writeUInt16LE(shiftTimeData.data[0], 0);
         shiftTimeBuffer.writeUInt16LE(shiftTimeData.data[1], 2);
-        const shiftTimeValue = shiftTimeBuffer.readFloatLE(0); // Изменено на readFloatLE
+        const shiftTimeValue = shiftTimeBuffer.readFloatLE(0);
         const workTimeBuffer = Buffer.alloc(4);
         workTimeBuffer.writeUInt16LE(workTimeData.data[0], 0);
         workTimeBuffer.writeUInt16LE(workTimeData.data[1], 2);
-        const workTimeValue = workTimeBuffer.readFloatLE(0); // Изменено на readFloatLE
+        const workTimeValue = workTimeBuffer.readFloatLE(0);
 
-        // Округление до сотых
+        
+        // oкругление до сотых
         const roundedShiftTime = parseFloat(shiftTimeValue.toFixed(2));
         const roundedWorkTime = parseFloat(workTimeValue.toFixed(2));
+
+        // Сумма левой и правой лыжи
+        const totalSkiValue = rightSkiValue + leftSkiValue;
 
         // Запись данных в MongoDB
         const doc = {
@@ -74,6 +78,7 @@ async function readData() {
           leftSkiReport: leftSkiReportValue,
           shiftTime: roundedShiftTime,
           workTime: roundedWorkTime,
+          totalSki: totalSkiValue,
         };
 
         await collection.insertOne(doc);
@@ -102,6 +107,7 @@ app.get('/api/mongo-value', async (req, res) => {
         defectReport: data[0].defectReport,
         shiftTime: data[0].shiftTime,
         workTime: data[0].workTime,
+        totalSki: data[0].totalSki,
       });
     } else {
       res.json({ message: 'Нет данных' });
