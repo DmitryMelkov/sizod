@@ -68,6 +68,7 @@ export const readData = async (collection) => {
           workTime: roundedWorkTime,
           totalSki: totalSkiValue,
           mode: mode,
+          lastUpdated: new Date(), // Добавляем время последней записи
         };
 
         // console.log('Данные', doc);

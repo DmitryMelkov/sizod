@@ -13,6 +13,8 @@ async function fetchData() {
     const shiftTimeElement = document.getElementById('shift-time');
     const totalSkiElement = document.getElementById('total-ski');
     const modeElement = document.getElementById('mode');
+    const lastUpdated = document.getElementById('last-updated');
+
 
     // Обновляем содержимое элементов
     leftSkiElement.textContent = data.leftSki !== undefined ? data.leftSki : 'Нет данных';
@@ -21,6 +23,8 @@ async function fetchData() {
     shiftTimeElement.textContent = data.shiftTime !== undefined ? data.shiftTime : 'Нет данных';
     totalSkiElement.textContent = data.totalSki !== undefined ? data.totalSki : 'Нет данных';
     modeElement.textContent = data.mode !== undefined ? data.mode : 'Нет данных';
+    lastUpdated.textContent = data.lastUpdated !== undefined ? data.lastUpdated : 'Нет данных';
+
   } catch (error) {
     console.error('Ошибка при получении данных:', error);
   }

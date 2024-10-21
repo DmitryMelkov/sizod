@@ -18,6 +18,14 @@ export const apiRoutes = (collection) => {
           workTime: data[0].workTime,
           totalSki: data[0].totalSki,
           mode: data[0].mode,
+          lastUpdated: new Date(data[0].lastUpdated).toLocaleString('ru-RU', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+          }),
         });
       } else {
         res.json({ message: 'Нет данных' });
