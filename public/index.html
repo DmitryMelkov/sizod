@@ -9,36 +9,71 @@
 </head>
 
 <body>
-  <div class="container">
-    <div class="content">
-      <span class="content__span">Лыжа левая:</span>
-      <span class="content__span-val" id="left-ski"></span>
-    </div>
-    <div class="content">
-      <span class="content__span">Лыжа правая:</span>
-      <span class="content__span-val" id="right-ski"></span>
-    </div>
-    <div class="content">
-      <span class="content__span">Сумма двух лыж:</span>
-      <span class="content__span-val" id="total-ski"></span>
-    </div>
-    <div class="content">
-      <span class="content__span">Брак:</span>
-      <span class="content__span-val" id="defect"></span>
-    </div>
-    <div class="content">
-      <span class="content__span">Статус работы линии:</span>
-      <span class="content__span-val" id="mode"></span>
-    </div>
-    <div class="content">
-      <span class="content__span">Время работы:</span>
-      <span class="content__span-val" id="shift-time"></span>
-    </div>
-    <div class="content">
-      <span class="content__span">Время записи на сервер:</span>
-      <span class="content__span-val" id="last-updated"></span>
+  <div class="current-param">
+    <h1 class="current-param__title">
+      <span class="current-param__title-span">СИЗОД</span>
+      ДОТ ЭКО
+    </h1>
+    <div class="current-param__box">
+      <span class="current-param__date">
+        даьта
+      </span>
+      <span class="current-param__time">
+        время
+      </span>
     </div>
   </div>
+
+  <div class="tables">
+    <table class="table">
+      <caption class="table__title">Текущие параметры
+      </caption>
+      <thead class="table__thead">
+        <tr class="table__tr">
+          <th class="table__th table__left">Наименование параметра</th>
+          <th class="table__th ">Значения</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="table__tr">
+          <td class="table__td table__left">Лыжа левая</td>
+          <td class="table__td table__right" id="left-ski">
+          </td>
+        </tr>
+        <tr class="table__tr">
+          <td class="table__td table__left">Лыжа правая</td>
+          <td class="table__td table__right" id="right-ski">
+          </td>
+        </tr>
+        <tr class="table__tr">
+          <td class="table__td table__left">Сумма двух лыж</td>
+          <td class="table__td table__right" id="total-ski">
+          </td>
+        </tr>
+        <tr class="table__tr">
+          <td class="table__td table__left">Брак</td>
+          <td class="table__td table__right" id="defect">
+          </td>
+        </tr>
+        <tr class="table__tr">
+          <td class="table__td table__left">Статус работы</td>
+          <td class="table__td table__right" id="mode">
+          </td>
+        </tr>
+        <tr class="table__tr">
+          <td class="table__td table__left">Время работы</td>
+          <td class="table__td table__right" id="shift-time">
+          </td>
+        </tr>
+        <tr class="table__tr">
+          <td class="table__td table__left">Время записи на сервер</td>
+          <td class="table__td table__right" id="last-updated">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 
   <script src="js/app.js"></script>
 </body>

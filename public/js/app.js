@@ -15,16 +15,21 @@ async function fetchData() {
     const modeElement = document.getElementById('mode');
     const lastUpdated = document.getElementById('last-updated');
 
-
     // Обновляем содержимое элементов
     leftSkiElement.textContent = data.leftSki !== undefined ? data.leftSki : 'Нет данных';
     rightSkiElement.textContent = data.rightSki !== undefined ? data.rightSki : 'Нет данных';
     defectElement.textContent = data.defect !== undefined ? data.defect : 'Нет данных';
     shiftTimeElement.textContent = data.shiftTime !== undefined ? data.shiftTime : 'Нет данных';
     totalSkiElement.textContent = data.totalSki !== undefined ? data.totalSki : 'Нет данных';
-    modeElement.textContent = data.mode !== undefined ? data.mode : 'Нет данных';
-    lastUpdated.textContent = data.lastUpdated !== undefined ? data.lastUpdated : 'Нет данных';
 
+    // Обработка статуса работы линии
+    if (data.lineStatusValue !== undefined) {
+      modeElement.textContent = data.lineStatusValue === 1 ? 'работает' : 'стоит';
+    } else {
+      modeElement.textContent = 'Нет данных';
+    }
+
+    lastUpdated.textContent = data.lastUpdated !== undefined ? data.lastUpdated : 'Нет данных';
   } catch (error) {
     console.error('Ошибка при получении данных:', error);
   }

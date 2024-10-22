@@ -20,13 +20,19 @@ export const readData = async (collection) => {
         const leftSkiReportData = await modbusClient.readHoldingRegisters(0x000a, 1);
         const shiftTimeData = await modbusClient.readHoldingRegisters(0x000e, 2);
         const workTimeData = await modbusClient.readHoldingRegisters(0x0012, 2);
-
+        const lineStatusData = await modbusClient.readHoldingRegisters(0x004a, 2);
         const rightSkiValue = rightSkiData.data[0];
         const leftSkiValue = leftSkiData.data[0];
         const defectValue = defectData.data[0];
         const defectReportValue = defectReportData.data[0];
         const rightSkiReportValue = rightSkiReportData.data[0];
         const leftSkiReportValue = leftSkiReportData.data[0];
+
+        // Объединяем два регистра в одно значение float для статуса работы линии
+        const lineStatusBuffer = Buffer.alloc(4);
+        lineStatusBuffer.writeUInt16LE(lineStatusData.data[0], 0);
+        lineStatusBuffer.writeUInt16LE(lineStatusData.data[1], 2);
+        const lineStatusValue = lineStatusBuffer.readFloatLE(0); // Преобразуем в float
 
         const shiftTimeBuffer = Buffer.alloc(4);
         shiftTimeBuffer.writeUInt16LE(shiftTimeData.data[0], 0);
@@ -41,21 +47,6 @@ export const readData = async (collection) => {
         const roundedWorkTime = parseFloat(workTimeValue.toFixed(2));
         const totalSkiValue = rightSkiValue + leftSkiValue;
 
-        const lastRecord = await collection.find().sort({ timestamp: -1 }).limit(1).toArray();
-        let mode = 'Не в работе';
-
-        if (lastRecord.length > 0) {
-          const lastTotalSkiValue = lastRecord[0].totalSki;
-          const lastTimestamp = lastRecord[0].timestamp;
-          const currentTime = new Date();
-
-          if (currentTime - lastTimestamp <= 60 * 1000) {
-            if (lastTotalSkiValue !== totalSkiValue) {
-              mode = 'В работе';
-            }
-          }
-        }
-
         const doc = {
           timestamp: new Date(),
           rightSki: rightSkiValue,
@@ -67,7 +58,7 @@ export const readData = async (collection) => {
           shiftTime: roundedShiftTime,
           workTime: roundedWorkTime,
           totalSki: totalSkiValue,
-          mode: mode,
+          lineStatusValue: lineStatusValue,
           lastUpdated: new Date(), // Добавляем время последней записи
         };
 
@@ -77,7 +68,7 @@ export const readData = async (collection) => {
       } catch (err) {
         console.error('Ошибка при чтении данных:', err);
       }
-    }, 5000);
+    }, 10000);
   } catch (err) {
     console.error('Ошибка при подключении:', err);
   }
