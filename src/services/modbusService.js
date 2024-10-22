@@ -46,6 +46,7 @@ export const readData = async (collection) => {
         const roundedShiftTime = parseFloat(shiftTimeValue.toFixed(2));
         const roundedWorkTime = parseFloat(workTimeValue.toFixed(2));
         const totalSkiValue = rightSkiValue + leftSkiValue;
+        const totalSkiValueReport = rightSkiReportValue + leftSkiReportValue;
 
         const doc = {
           timestamp: new Date(),
@@ -58,11 +59,12 @@ export const readData = async (collection) => {
           shiftTime: roundedShiftTime,
           workTime: roundedWorkTime,
           totalSki: totalSkiValue,
+          totalSkiReport:totalSkiValueReport,
           lineStatusValue: lineStatusValue,
           lastUpdated: new Date(), // Добавляем время последней записи
         };
 
-        // console.log('Данные', doc);
+        console.log('Данные', doc);
 
         await collection.insertOne(doc);
       } catch (err) {

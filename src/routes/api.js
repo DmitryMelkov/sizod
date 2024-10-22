@@ -17,6 +17,7 @@ export const apiRoutes = (collection) => {
           shiftTime: data[0].shiftTime,
           workTime: data[0].workTime,
           totalSki: data[0].totalSki,
+          totalSkiReport: data[0].totalSkiReport,
           lineStatusValue: data[0].lineStatusValue,
           lastUpdated: new Date(data[0].lastUpdated).toLocaleString('ru-RU', {
             year: 'numeric',
