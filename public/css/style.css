@@ -316,7 +316,7 @@ body::-webkit-scrollbar-thumb {
   position: absolute;
   max-width: 780px;
   width: 100%;
-  /* height: 50px; */
+  max-height: 100%;
   top: 50%;
   left: 50%;
   z-index: 1;
@@ -334,6 +334,11 @@ body::-webkit-scrollbar-thumb {
   align-items: center;
   justify-content: center;
   /* border-bottom: 1px solid gray; */
+}
+
+.mnemo__modal-report {
+  overflow-y: auto;
+  max-height: 500px;
 }
 
 .mnemo__modal-title-text {
@@ -421,7 +426,11 @@ body::-webkit-scrollbar-thumb {
 .mnemo__modal-report-table th,
 .mnemo__modal-report-table td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 2px 5px;
+}
+
+.mnemo__modal-report-table th {
+  padding: 5px;
 }
 
 .mnemo__modal-report-table tr:hover {
@@ -434,3 +443,6 @@ body::-webkit-scrollbar-thumb {
 
 
 
+.for-raport {
+  display: none;
+}
