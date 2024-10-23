@@ -16,7 +16,7 @@ export const displayHourlyReport = (report) => {
   // Добавляем заголовок таблицы
   const header = table.createTHead();
   const headerRow = header.insertRow(0);
-  const headers = ['Время', 'Конвейер правый (штук)', 'Конвейер левый (штук)', 'Сумма изделий'];
+  const headers = ['Время', 'Конвейер правый (штук)', 'Конвейер левый (штук)', 'Сумма изделий', 'Брак'];
 
   headers.forEach((text, index) => {
     const cell = headerRow.insertCell(index);
@@ -42,6 +42,9 @@ export const displayHourlyReport = (report) => {
 
     const cellTotal = row.insertCell(3);
     cellTotal.textContent = entry.totalSki;
+
+    const cellDefect = row.insertCell(4);
+    cellDefect.textContent = entry.defect;
   }
 
   // Добавляем таблицу в контейнер

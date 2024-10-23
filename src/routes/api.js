@@ -7,7 +7,6 @@ const router = Router();
 const getHourlyReport = async (collection) => {
   const startDate = moment().startOf('day').toDate(); // Начало текущего дня (00:00)
   const endDate = moment().toDate(); // Текущая дата и время
-
   const data = await collection
     .find({
       timestamp: {
@@ -25,26 +24,33 @@ const getHourlyReport = async (collection) => {
       hourlyData[hour] = {
         rightSkiReport: [],
         leftSkiReport: [],
+        defectReport: [], // Массив для брака
       };
     }
     hourlyData[hour].rightSkiReport.push(entry.rightSkiReport);
     hourlyData[hour].leftSkiReport.push(entry.leftSkiReport);
+    hourlyData[hour].defectReport.push(entry.defect); // Сохраняем данные о браке
   });
 
   const result = {};
   for (const hour in hourlyData) {
     const rightSkiValues = hourlyData[hour].rightSkiReport;
     const leftSkiValues = hourlyData[hour].leftSkiReport;
+    const defectValues = hourlyData[hour].defectReport;
 
     const maxRightSki = Math.max(...rightSkiValues);
     const minRightSki = Math.min(...rightSkiValues);
     const maxLeftSki = Math.max(...leftSkiValues);
     const minLeftSki = Math.min(...leftSkiValues);
-
+    // Вычисляем количество брака аналогично
+    const maxDefect = Math.max(...defectValues);
+    const minDefect = Math.min(...defectValues);
+    const totalDefects = maxDefect - minDefect; // Брак как разница между максимальным и минимальным
     result[hour] = {
       rightSki: maxRightSki - minRightSki,
       leftSki: maxLeftSki - minLeftSki,
-      totalSki: (maxRightSki - minRightSki) + (maxLeftSki - minLeftSki),
+      totalSki: maxRightSki - minRightSki + (maxLeftSki - minLeftSki),
+      defect: totalDefects, // Добавляем количество брака
     };
   }
 
