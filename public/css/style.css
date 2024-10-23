@@ -86,6 +86,7 @@
 
 body {
   font-family: 'Bitter', sans-serif;
+  margin: 0;
 }
 
 body::-webkit-scrollbar {
@@ -165,6 +166,7 @@ body::-webkit-scrollbar-thumb {
 
 .dot-eko__container {
   position: relative;
+  padding-left: 10px;
 }
 
 
@@ -317,6 +319,7 @@ body::-webkit-scrollbar-thumb {
   max-width: 780px;
   width: 100%;
   max-height: 100%;
+  min-height: 300px;
   top: 50%;
   left: 50%;
   z-index: 1;
@@ -422,6 +425,14 @@ body::-webkit-scrollbar-thumb {
 }
 
 
+.mnemo__modal-report-cell {
+  text-align: center;
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 400;
+  color: black;
+}
+
 
 .mnemo__modal-report-table th,
 .mnemo__modal-report-table td {
@@ -445,4 +456,88 @@ body::-webkit-scrollbar-thumb {
 
 .for-raport {
   display: none;
+}
+
+.mnemo__modal-body {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+.spinner {
+  color: green;
+  font-size: 60px;
+  text-indent: -9999em;
+  overflow: hidden;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  position: relative;
+  transform: translateZ(0);
+  animation: mltShdSpin 1.7s infinite ease, round 1.7s infinite ease;
+}
+
+.overlay {
+  display: none;
+  height: 10%;
+  width: 10%;
+  background-color: transparent;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+}
+
+.overlay.active {
+  display: block;
+}
+
+@keyframes mltShdSpin {
+  0% {
+    box-shadow: 0 -0.83em 0 -0.4em,
+      0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em,
+      0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+
+  5%,
+  95% {
+    box-shadow: 0 -0.83em 0 -0.4em,
+      0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em,
+      0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+
+  10%,
+  59% {
+    box-shadow: 0 -0.83em 0 -0.4em,
+      -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em,
+      -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+  }
+
+  20% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em,
+      -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em,
+      -0.749em -0.34em 0 -0.477em;
+  }
+
+  38% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em,
+      -0.645em -0.522em 0 -0.44em, -0.775em -0.297ем 0 -0.46em,
+      -0.82em -0.09ем 0 -0.477em;
+  }
+
+  100% {
+    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em,
+      0 -0.83em 0 -0.44em, 0 -0.83ем 0 -0.46ем, 0 -0.83ем 0 -0.477ем;
+  }
+}
+
+@keyframes round {
+  0% {
+    transform: rotate(0deg)
+  }
+
+  100% {
+    transform: rotate(360deg)
+  }
 }
