@@ -397,3 +397,32 @@ body::-webkit-scrollbar-thumb {
   color: white;
   background-color: green;
 }
+
+
+.mnemo__modal-report-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.mnemo__modal-report-header {
+  background-color: green;
+  color: white;
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.mnemo__modal-report-table th,
+.mnemo__modal-report-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.mnemo__modal-report-table tr:hover {
+  background-color: #ddd;
+}
+
+.mnemo__modal-report-table tr:active {
+  background-color: #ddd;
+}
