@@ -4,24 +4,31 @@ import { openModal } from './modal.js';
 
 export const displayHourlyReport = (report) => {
   const reportDiv = document.getElementById('modal-report-content');
-  reportDiv.innerHTML = ''; // Очищаем содержимое
+  reportDiv.innerHTML = '';
 
   // Создаем таблицу с классом mnemo__modal-report-table
-  const table = document.createElement('table'); // Объявляем переменную table
-  table.className = 'mnemo__modal-report-table'; // Задаем класс
+  const table = document.createElement('table');
+  table.className = 'mnemo__modal-report-table';
   table.style.width = '100%';
   table.style.borderCollapse = 'collapse';
-  table.style.marginTop = '10px';
 
   // Добавляем заголовок таблицы
   const header = table.createTHead();
   const headerRow = header.insertRow(0);
-  const headers = ['Время', 'Конвейер правый (штук)', 'Конвейер левый (штук)', 'Сумма изделий', 'Брак'];
+  const headers = [
+    'Время',
+    'Конвейер правый (штук)',
+    'Конвейер левый (штук)',
+    'Сумма (штук)',
+    'Время работы (ч)',
+    'Брак (штук)',
+  ];
 
-  headers.forEach((text, index) => {
-    const cell = headerRow.insertCell(index);
+  headers.forEach((text) => {
+    const cell = document.createElement('th'); // Создаем элемент <th>
     cell.textContent = text;
-    cell.className = 'mnemo__modal-report-header'; // Задаем класс для заголовка
+    cell.className = 'mnemo__modal-report-header';
+    headerRow.appendChild(cell); // Добавляем <th> в строку заголовка
   });
 
   // Добавляем строки с данными
@@ -33,18 +40,27 @@ export const displayHourlyReport = (report) => {
     const time = new Date(hour).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const cellTime = row.insertCell(0);
     cellTime.textContent = time; // Устанавливаем только время
-
+    cellTime.className = 'mnemo__modal-report-cell'; // Класс для стилизации
     const cellRight = row.insertCell(1);
     cellRight.textContent = entry.rightSki;
-
+    cellRight.className = 'mnemo__modal-report-cell'; // Класс для стилизации
     const cellLeft = row.insertCell(2);
     cellLeft.textContent = entry.leftSki;
-
+    cellLeft.className = 'mnemo__modal-report-cell'; // Класс для стилизации
     const cellTotal = row.insertCell(3);
     cellTotal.textContent = entry.totalSki;
+    cellTotal.className = 'mnemo__modal-report-cell'; // Класс для стилизации
+    cellTotal.style.backgroundColor = '#f0f0f0'; // Цвет фона для суммы
+    const cellWorkTime = row.insertCell(4);
+    cellWorkTime.textContent = entry.workTime.toFixed(2);
+    cellWorkTime.className = 'mnemo__modal-report-cell'; // Класс для стилизации
 
-    const cellDefect = row.insertCell(4);
+    const cellDefect = row.insertCell(5);
     cellDefect.textContent = entry.defect;
+    cellDefect.className = 'mnemo__modal-report-cell'; // Класс для стилизации
+    if (entry.defect > 0) {
+      cellDefect.style.backgroundColor = '#ffcccc'; // Менее яркий цвет для брака
+    }
   }
 
   // Добавляем таблицу в контейнер

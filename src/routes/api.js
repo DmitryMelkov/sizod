@@ -25,11 +25,13 @@ const getHourlyReport = async (collection) => {
         rightSkiReport: [],
         leftSkiReport: [],
         defectReport: [], // Массив для брака
+        workTime: [], // Массив для workTime
       };
     }
     hourlyData[hour].rightSkiReport.push(entry.rightSkiReport);
     hourlyData[hour].leftSkiReport.push(entry.leftSkiReport);
     hourlyData[hour].defectReport.push(entry.defect); // Сохраняем данные о браке
+    hourlyData[hour].workTime.push(entry.workTime); // Сохраняем данные о workTime
   });
 
   const result = {};
@@ -37,20 +39,26 @@ const getHourlyReport = async (collection) => {
     const rightSkiValues = hourlyData[hour].rightSkiReport;
     const leftSkiValues = hourlyData[hour].leftSkiReport;
     const defectValues = hourlyData[hour].defectReport;
-
+    const workTimeValues = hourlyData[hour].workTime; // Получаем данные о workTime
     const maxRightSki = Math.max(...rightSkiValues);
     const minRightSki = Math.min(...rightSkiValues);
     const maxLeftSki = Math.max(...leftSkiValues);
     const minLeftSki = Math.min(...leftSkiValues);
-    // Вычисляем количество брака аналогично
     const maxDefect = Math.max(...defectValues);
     const minDefect = Math.min(...defectValues);
     const totalDefects = maxDefect - minDefect; // Брак как разница между максимальным и минимальным
+
+    // Вычисляем workTime как разницу между максимальным и минимальным значением
+    const maxWorkTime = Math.max(...workTimeValues);
+    const minWorkTime = Math.min(...workTimeValues);
+    const totalWorkTime = maxWorkTime - minWorkTime;
+
     result[hour] = {
       rightSki: maxRightSki - minRightSki,
       leftSki: maxLeftSki - minLeftSki,
       totalSki: maxRightSki - minRightSki + (maxLeftSki - minLeftSki),
       defect: totalDefects, // Добавляем количество брака
+      workTime: totalWorkTime, // Добавляем workTime
     };
   }
 
