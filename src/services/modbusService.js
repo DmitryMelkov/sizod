@@ -64,7 +64,7 @@ export const readData = async (collection) => {
           lastUpdated: new Date(), // Добавляем время последней записи
         };
 
-        console.log('Данные', doc);
+        // console.log('Данные', doc);
 
         await collection.insertOne(doc);
       } catch (err) {

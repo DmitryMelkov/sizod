@@ -1,3 +1,8 @@
+// app.js
+import { updateDateTime } from './utils.js';
+import { setupModalHandlers } from './modal.js';
+import { fetchHourlyReport } from './report.js';
+
 async function fetchData() {
   try {
     const response = await fetch('/api/mongo-value');
@@ -18,10 +23,6 @@ async function fetchData() {
     const totalSkiReportDotEKO = document.getElementById('total-ski-report-dot-eko');
     const defectReportDotEKO = document.getElementById('defect-report-dot-eko');
     const workTimeDotEKO = document.getElementById('work-time-dot-eko');
-
-
-
-
     const lastUpdatedDotEKO = document.getElementById('last-updated-dot-eko');
 
     // Обновляем содержимое элементов
@@ -36,19 +37,8 @@ async function fetchData() {
     defectReportDotEKO.textContent = data.defectReport !== undefined ? data.defectReport : 'Нет данных';
     workTimeDotEKO.textContent = data.workTime !== undefined ? data.workTime : 'Нет данных';
 
-
-
-
-
-
-
     // Обработка статуса работы линии
-    if (data.lineStatusValue !== undefined) {
-      modeDotEKO.textContent = data.lineStatusValue === 1 ? 'работает' : 'стоит';
-    } else {
-      modeDotEKO.textContent = 'Нет данных';
-    }
-
+    modeDotEKO.textContent = data.lineStatusValue !== undefined ? (data.lineStatusValue === 1 ? 'работает' : 'стоит') : 'Нет данных';
     lastUpdatedDotEKO.textContent = data.lastUpdated !== undefined ? data.lastUpdated : 'Нет данных';
   } catch (error) {
     console.error('Ошибка при получении данных:', error);
@@ -57,19 +47,16 @@ async function fetchData() {
 
 // Обновление данных каждые 5 секунд
 setInterval(fetchData, 5000);
-// Первоначальный вызов для получения данных сразу при загрузке страницы
-fetchData();
-
-// Функция для обновления текущей даты и времени
-const updateDateTime = () => {
-  const now = new Date();
-  const date = now.toLocaleDateString();
-  const time = now.toLocaleTimeString();
-  document.getElementById('current-date').textContent = date;
-  document.getElementById('current-time').textContent = time;
-}
+fetchData(); // Первоначальный вызов для получения данных сразу при загрузке страницы
 
 // Обновление времени каждые 1 секунду
 setInterval(updateDateTime, 1000);
-// Первоначальный вызов для получения текущей даты и времени сразу при загрузке страницы
-updateDateTime();
+updateDateTime(); // Первоначальный вызов для получения текущей даты и времени сразу при загрузке страницы
+
+// Настройка обработчиков модальных окон
+setupModalHandlers();
+
+// Обработчик клика по кнопке "Получить часовой отчет"
+document.getElementById('fetch-report').addEventListener('click', () => {
+  fetchHourlyReport();
+});

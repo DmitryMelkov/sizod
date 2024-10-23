@@ -9,3 +9,5 @@ export const connectToDb = async () => {
   console.log('Подключено к MongoDB');
   return mongoClient.db(dbName).collection(collectionName);
 };
+
+
