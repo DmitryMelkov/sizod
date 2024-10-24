@@ -22,7 +22,7 @@ export const fetchHourlyReport = async () => {
       overlay.classList.remove('active');
       modalReport.style.visibility = 'visible';
       dotEkoReportHour(report);
-      openModal('doc-modal');
+      openModal('dot-eko-hour-report');
     }, 1000);
   } catch (error) {
     overlay.classList.remove('active');

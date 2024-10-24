@@ -1,5 +1,5 @@
 export const dotEkoReportHour = (report) => {
-  const reportDiv = document.getElementById('modal-report-content');
+  const reportDiv = document.getElementById('modal-report-content-hour');
   reportDiv.innerHTML = '';
 
   // Создаем таблицу с классом mnemo__modal-report-table

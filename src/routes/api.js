@@ -49,5 +49,16 @@ export const apiRoutes = (collection) => {
     }
   });
 
+  // Новый маршрут для получения месячного отчета
+  router.get('/monthly-report', async (req, res) => {
+    try {
+      const report = await dotEkoReportMonth(collection);
+      res.json(report);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Ошибка получения месячного отчета');
+    }
+  });
+
   return router;
 };

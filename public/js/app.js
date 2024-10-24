@@ -1,7 +1,7 @@
-// app.js
 import { updateDateTime } from './utils.js';
 import { setupModalHandlers } from './modal.js';
 import { fetchHourlyReport } from './report.js';
+import { updateGifStatus } from './lineStatusAnimate.js';
 
 async function fetchData() {
   try {
@@ -37,8 +37,10 @@ async function fetchData() {
     defectReportDotEKO.textContent = data.defectReport !== undefined ? data.defectReport : 'Нет данных';
     workTimeDotEKO.textContent = data.workTime !== undefined ? data.workTime : 'Нет данных';
 
-    // Обработка статуса работы линии
-    modeDotEKO.textContent = data.lineStatusValue !== undefined ? (data.lineStatusValue === 1 ? 'работает' : 'стоит') : 'Нет данных';
+    // Обработка статуса работы линии и обновление GIF
+    modeDotEKO.textContent =
+      data.lineStatusValue !== undefined ? (data.lineStatusValue === 1 ? 'работает' : 'стоит') : 'Нет данных';
+    updateGifStatus(data.lineStatusValue); 
     lastUpdatedDotEKO.textContent = data.lastUpdated !== undefined ? data.lastUpdated : 'Нет данных';
   } catch (error) {
     console.error('Ошибка при получении данных:', error);
@@ -57,6 +59,10 @@ updateDateTime(); // Первоначальный вызов для получе
 setupModalHandlers();
 
 // Обработчик клика по кнопке "Получить часовой отчет"
-document.getElementById('fetch-report').addEventListener('click', () => {
+document.getElementById('dot-eko-hour-report-btn').addEventListener('click', () => {
   fetchHourlyReport();
+});
+
+document.getElementById('dot-eko-month-report-btn').addEventListener('click', () => {
+  // Логика для получения месячного отчета
 });

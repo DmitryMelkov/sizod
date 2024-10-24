@@ -107,6 +107,10 @@ body::-webkit-scrollbar-thumb {
   /* закругления плашки */
 }
 
+img {
+  max-width: 100%;
+}
+
 .body {
   margin: 0;
   padding: 5px 15px;
@@ -171,16 +175,17 @@ body::-webkit-scrollbar-thumb {
 
 
 .tables {
+  position: absolute;
+  left: 360px;
+  top: 200px;
+  z-index: 1;
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
 
 
 .table {
-  margin-top: 15px;
-  margin-right: 15px;
-  width: 460px;
+  width: 410px;
   height: fit-content;
   text-align: left;
   border-collapse: collapse;
@@ -208,8 +213,8 @@ body::-webkit-scrollbar-thumb {
   padding: 5px 10px;
   text-align: center;
   font-family: 'Bitter', sans-serif;
-  font-size: 18px;
-  line-height: 18px;
+  font-size: 16px;
+  line-height: 16px;
   font-weight: 800;
   color: black;
 }
@@ -218,8 +223,8 @@ body::-webkit-scrollbar-thumb {
   letter-spacing: 1px;
   text-align: center;
   font-family: 'Bitter', sans-serif;
-  font-size: 16px;
-  line-height: 16px;
+  font-size: 14px;
+  line-height: 14px;
   font-weight: 500;
   color: black;
 }
@@ -240,6 +245,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .current-param {
+  max-width: 900px;
   margin-right: 15px;
   background-color: #e7eef4;
   box-shadow: 0 0 5px 1px black;
@@ -302,6 +308,16 @@ body::-webkit-scrollbar-thumb {
   opacity: 0;
   z-index: -3;
   cursor: default;
+}
+
+.mnemo {
+  position: relative;
+  margin-top: 10px;
+  display: flex;
+}
+
+.mnemo__img {
+  max-width: 900px;
 }
 
 .mnemo__modal-background.enabled {
@@ -381,7 +397,8 @@ body::-webkit-scrollbar-thumb {
 }
 
 .mnemo__param-box--btns {
-  margin-top: 20px;
+  margin-top: 15px;
+
   display: flex;
   align-items: center;
 }
@@ -404,6 +421,10 @@ body::-webkit-scrollbar-thumb {
 .mnemo__param-box--btn:active {
   color: white;
   background-color: green;
+}
+
+.mnemo__param-box--btn:first-child {
+  border-right: none;
 }
 
 
