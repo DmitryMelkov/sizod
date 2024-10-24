@@ -1,4 +1,4 @@
-import { dotEkoReportHour, dotEkoReportMonth } from './dotEkoReportHour.js'; // Импортируем обе функции
+import { dotEkoReportHour, dotEkoReportMonth } from './dotEkoReport.js'; // Импортируем обе функции
 import { openModal } from './modal.js';
 
 // Функция для получения и отображения суточного отчета

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { dotEkoReportHour, dotEkoReportMonth } from '../services/reportDotEkoHourServices.js';
+import { dotEkoReportHour, dotEkoReportMonth } from '../services/reportDotEkoServices.js';
 
 const router = Router();
 
