@@ -3,7 +3,7 @@ import { openModal } from './modal.js';
 
 // Функция для получения и отображения суточного отчета
 export const fetchHourlyReport = async () => {
-  const overlay = document.querySelector('.overlay-hour');
+  const overlay = document.querySelector('.overlay-hour-report');
   const modalReport = document.querySelector('#modal-report-content-hour');
 
   try {
@@ -31,7 +31,7 @@ export const fetchHourlyReport = async () => {
 
 // Функция для получения и отображения месячного отчета
 export const fetchMonthlyReport = async () => {
-  const overlay = document.querySelector('.overlay-month');
+  const overlay = document.querySelector('.overlay-month-report');
   const modalReport = document.querySelector('#modal-report-content-month');
 
   try {

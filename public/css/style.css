@@ -397,20 +397,32 @@ img {
 }
 
 .mnemo__param-box--btns {
-  margin-top: 15px;
-
+  position: absolute;
+  bottom: -206px;
+  left: 30px;
+  z-index: 1;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   align-items: center;
+  gap: 10px;
+  max-width: 300px;
 }
 
 .mnemo__param-box--btn {
-  padding: 5px;
-  font-size: 16px;
-  line-height: 23px;
+  flex: 1 1 48%;
+  padding: 10px;
+  height: 35px;
+  font-size: 14px;
+  line-height: 14px;
   font-weight: 600;
   color: green;
   border: 1px solid green;
   transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .mnemo__param-box--btn:hover {
@@ -423,13 +435,6 @@ img {
   background-color: green;
 }
 
-.mnemo__param-box--btn:first-child {
-  border-right: none;
-}
-
-.mnemo__param-box--btn:last-child {
-  border-left: none;
-}
 
 .mnemo__modal-report-table {
   width: 100%;
