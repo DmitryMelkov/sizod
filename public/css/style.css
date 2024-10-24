@@ -427,6 +427,9 @@ img {
   border-right: none;
 }
 
+.mnemo__param-box--btn:last-child {
+  border-left: none;
+}
 
 .mnemo__modal-report-table {
   width: 100%;
@@ -561,4 +564,92 @@ img {
   100% {
     transform: rotate(360deg)
   }
+}
+
+
+.mnemo__content {
+  position: relative;
+}
+
+.mnemo__param-val {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  background-color: rgb(218, 215, 215);
+  padding: 3px;
+  font-size: 16px;
+  position: absolute;
+  z-index: 1;
+}
+
+.mnemo__param-text {
+  margin-right: 2px;
+  font-size: 14px;
+  line-height: 14px;
+  color: black;
+  font-weight: 400;
+}
+
+.mnemo__param-naimenov {
+  font-size: 14px;
+  line-height: 14px;
+  color: black;
+  font-weight: 400;
+}
+
+.mnemo__param-val--right-ski {
+  bottom: 95px;
+  left: 280px;
+}
+
+.mnemo__param-val--left-ski {
+  bottom: 95px;
+  left: 150px;
+}
+
+.mnemo__param-val--defect {
+  bottom: 40px;
+  left: 150px;
+}
+
+.mnemo__param-val--total-ski {
+  bottom: -20px;
+  left: 215px;
+}
+
+.mnemo__param-descr {
+  position: absolute;
+  z-index: 1;
+  font-size: 14px;
+  /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
+  line-height: 14px;
+  color: rgb(10, 59, 10);
+  font-weight: 600;
+  text-align: center;
+}
+
+
+.mnemo__param-val--right-ski-text {
+  max-width: 80px;
+  left: 261px;
+  bottom: 120px;
+}
+
+.mnemo__param-val--left-ski-text {
+  max-width: 80px;
+  left: 137px;
+  bottom: 120px;
+}
+
+.mnemo__param-val--defect-ski-text {
+  max-width: 80px;
+  left: 158px;
+  bottom: 62px;
+}
+
+.mnemo__param-val--total-ski-text {
+  max-width: 80px;
+  left: 217px;
+  bottom: 4px;
 }

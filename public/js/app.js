@@ -11,7 +11,7 @@ async function fetchData() {
     }
     const data = await response.json();
 
-    // Создаем переменные для элементов
+    // для таблицы
     const leftSkiDotEKO = document.getElementById('left-ski-dot-eko');
     const rightSkiDotEKO = document.getElementById('right-ski-dot-eko');
     const totalSkiDotEKO = document.getElementById('total-ski-dot-eko');
@@ -25,7 +25,6 @@ async function fetchData() {
     const workTimeDotEKO = document.getElementById('work-time-dot-eko');
     const lastUpdatedDotEKO = document.getElementById('last-updated-dot-eko');
 
-    // Обновляем содержимое элементов
     leftSkiDotEKO.textContent = data.leftSki !== undefined ? data.leftSki : 'Нет данных';
     rightSkiDotEKO.textContent = data.rightSki !== undefined ? data.rightSki : 'Нет данных';
     defectDotEKO.textContent = data.defect !== undefined ? data.defect : 'Нет данных';
@@ -36,6 +35,17 @@ async function fetchData() {
     totalSkiReportDotEKO.textContent = data.totalSkiReport !== undefined ? data.totalSkiReport : 'Нет данных';
     defectReportDotEKO.textContent = data.defectReport !== undefined ? data.defectReport : 'Нет данных';
     workTimeDotEKO.textContent = data.workTime !== undefined ? data.workTime : 'Нет данных';
+
+    // для мнемосхемы
+    const leftSkiDotEKOMnemo = document.querySelector('.mnemo-left-ski-dot-eko');
+    const rightSkiDotEKOMnemo = document.querySelector('.mnemo-right-ski-dot-eko');
+    const totalSkiDotEKOMnemo = document.querySelector('.mnemo-total-ski-dot-eko');
+    const defectDotEKOMnemo = document.querySelector('.mnemo-defect-dot-eko');
+
+    leftSkiDotEKOMnemo.textContent = data.leftSki !== undefined ? data.leftSki : 'Нет данных';
+    rightSkiDotEKOMnemo.textContent = data.rightSki !== undefined ? data.rightSki : 'Нет данных';
+    totalSkiDotEKOMnemo.textContent = data.totalSki !== undefined ? data.totalSki : 'Нет данных';
+    defectDotEKOMnemo.textContent = data.defect !== undefined ? data.defect : 'Нет данных';
 
     // Обработка статуса работы линии и обновление GIF
     modeDotEKO.textContent =
@@ -64,5 +74,5 @@ document.getElementById('dot-eko-hour-report-btn').addEventListener('click', () 
 });
 
 document.getElementById('dot-eko-month-report-btn').addEventListener('click', () => {
-  fetchMonthlyReport()
+  fetchMonthlyReport();
 });
