@@ -1,6 +1,6 @@
 import { updateDateTime } from './utils.js';
 import { setupModalHandlers } from './modal.js';
-import { fetchHourlyReport } from './report.js';
+import { fetchHourlyReport, fetchMonthlyReport } from './report.js';
 import { updateGifStatus } from './lineStatusAnimate.js';
 
 async function fetchData() {
@@ -40,7 +40,7 @@ async function fetchData() {
     // Обработка статуса работы линии и обновление GIF
     modeDotEKO.textContent =
       data.lineStatusValue !== undefined ? (data.lineStatusValue === 1 ? 'работает' : 'стоит') : 'Нет данных';
-    updateGifStatus(data.lineStatusValue); 
+    updateGifStatus(data.lineStatusValue);
     lastUpdatedDotEKO.textContent = data.lastUpdated !== undefined ? data.lastUpdated : 'Нет данных';
   } catch (error) {
     console.error('Ошибка при получении данных:', error);
@@ -64,5 +64,5 @@ document.getElementById('dot-eko-hour-report-btn').addEventListener('click', () 
 });
 
 document.getElementById('dot-eko-month-report-btn').addEventListener('click', () => {
-  // Логика для получения месячного отчета
+  fetchMonthlyReport()
 });
