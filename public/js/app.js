@@ -2,7 +2,7 @@ import { updateDateTime } from './utils.js';
 import { setupModalHandlers } from './modal.js';
 import { fetchHourlyReport, fetchMonthlyReport } from './report.js';
 import { updateGifStatus } from './lineStatusAnimate.js';
-import { fetchMonthlyGraph } from './graph.js';
+import { fetchHourlyGraph, fetchMonthlyGraph } from './graph.js';
 
 async function fetchData() {
   try {
@@ -80,4 +80,9 @@ document.getElementById('dot-eko-month-report-btn').addEventListener('click', ()
 
 document.getElementById('dot-eko-month-graph-btn').addEventListener('click', () => {
   fetchMonthlyGraph();
+});
+
+// Обработчик клика по кнопке "Получить суточный график"
+document.getElementById('dot-eko-hour-graph-btn').addEventListener('click', () => {
+  fetchHourlyGraph();
 });

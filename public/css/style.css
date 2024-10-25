@@ -580,7 +580,7 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50px;
+  width: 60px;
   background-color: rgb(218, 215, 215);
   padding: 3px;
   font-size: 16px;
@@ -592,15 +592,15 @@ img {
   margin-right: 2px;
   font-size: 14px;
   line-height: 14px;
-  color: black;
-  font-weight: 400;
+  color: green;
+  font-weight: 600;
 }
 
 .mnemo__param-naimenov {
   font-size: 14px;
   line-height: 14px;
-  color: black;
-  font-weight: 400;
+  color: green;
+  font-weight: 600;
 }
 
 .mnemo__param-val--right-ski {
@@ -610,17 +610,17 @@ img {
 
 .mnemo__param-val--left-ski {
   bottom: 95px;
-  left: 150px;
+  left: 140px;
 }
 
 .mnemo__param-val--defect {
   bottom: 40px;
-  left: 150px;
+  left: 140px;
 }
 
 .mnemo__param-val--total-ski {
   bottom: -20px;
-  left: 215px;
+  left: 210px;
 }
 
 .mnemo__param-descr {
