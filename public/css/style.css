@@ -195,11 +195,11 @@ img {
 }
 
 .table__title {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   text-align: center;
   font-family: 'Bitter', sans-serif;
-  font-size: 20px;
-  line-height: 25px;
+  font-size: 16px;
+  line-height: 20px;
   font-weight: 700;
   color: green;
 }
@@ -213,8 +213,8 @@ img {
   padding: 5px 10px;
   text-align: center;
   font-family: 'Bitter', sans-serif;
-  font-size: 16px;
-  line-height: 16px;
+  font-size: 14px;
+  line-height: 14px;
   font-weight: 800;
   color: black;
 }
@@ -223,14 +223,14 @@ img {
   letter-spacing: 1px;
   text-align: center;
   font-family: 'Bitter', sans-serif;
-  font-size: 14px;
-  line-height: 14px;
+  font-size: 12px;
+  line-height: 12px;
   font-weight: 500;
   color: black;
 }
 
 .table__left {
-  padding: 10px;
+  padding: 5px;
   text-align: left;
 }
 
@@ -275,6 +275,24 @@ img {
   font-weight: 600;
   color: black;
 }
+
+.current-param__subtitle {
+  margin: 0;
+  font-size: 20px;
+  line-height: 29px;
+  font-weight: 600;
+  color: black;
+  text-align: center;
+}
+
+.current-param__subtitle-span {
+  margin-left: 15px;
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: 600;
+  color: blue;
+}
+
 
 .current-param__box {
   display: flex;
@@ -398,7 +416,7 @@ img {
 
 .mnemo__param-box--btns {
   position: absolute;
-  bottom: -206px;
+  bottom: -125px;
   left: 30px;
   z-index: 1;
   display: flex;
@@ -411,8 +429,8 @@ img {
 
 .mnemo__param-box--btn {
   flex: 1 1 48%;
-  padding: 10px;
-  height: 35px;
+  padding: 5px;
+  height: 30px;
   font-size: 14px;
   line-height: 14px;
   font-weight: 600;
@@ -657,4 +675,62 @@ img {
   max-width: 80px;
   left: 217px;
   bottom: 4px;
+}
+
+.mnemo__param-val--control-box-text {
+  max-width: 110px;
+  top: 81px;
+  left: 333px;
+  color: white;
+}
+
+.mnemo__param-val--loading-cases-text {
+  max-width: 82px;
+  top: 103px;
+  right: 309px;
+  font-size: 12px;
+  line-height: 12px;
+  color: white;
+}
+
+.mnemo__param-val--uz-welding-tampon-text {
+  max-width: 110px;
+  top: 170px;
+  right: 213px;
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.mnemo__param-val--loading-charge-text {
+  max-width: 110px;
+  top: 13px;
+  right: 153px;
+  font-size: 12px;
+  line-height: 12px;
+}
+
+
+.mnemo__param-val--uz-welding-lid-text {
+  max-width: 116px;
+  top: 7px;
+  right: 354px;
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.mnemo__param-val--loading-covers-text {
+  max-width: 98px;
+  top: 7px;
+  right: 275px;
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.mnemo__param-val--manipulator-text {
+  max-width: 80px;
+  top: 105px;
+  left: 214px;
+  font-size: 12px;
+  line-height: 12px;
+  color: white;
 }
