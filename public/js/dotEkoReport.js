@@ -3,13 +3,11 @@ export const dotEkoReportHour = (report) => {
   const reportDiv = document.getElementById('modal-report-content-hour');
   reportDiv.innerHTML = '';
 
-  // Создаем таблицу с классом mnemo__modal-report-table
   const table = document.createElement('table');
   table.className = 'mnemo__modal-report-table';
   table.style.width = '100%';
   table.style.borderCollapse = 'collapse';
 
-  // Добавляем заголовок таблицы
   const header = table.createTHead();
   const headerRow = header.insertRow(0);
   const headers = [
@@ -28,56 +26,70 @@ export const dotEkoReportHour = (report) => {
     headerRow.appendChild(cell);
   });
 
-  // Переменные для итогов
   let totalRightSki = 0;
   let totalLeftSki = 0;
   let totalSki = 0;
   let totalWorkTime = 0;
   let totalDefect = 0;
 
-  // Добавляем строки с данными
   const body = table.createTBody();
+
+  const currentHour = moment().startOf('hour').format('YYYY-MM-DD HH:00');
+  const currentTime = moment().format('HH:mm');
+
+  let previousHourShown = false;
+
   for (const hour in report) {
     const entry = report[hour];
     const row = body.insertRow();
 
-    const time = new Date(hour).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const isCurrentHour = hour === currentHour;
+    const timeLabel = isCurrentHour
+      ? hour.split(' ')[1] // Отображаем начало текущего часа
+      : previousHourShown
+      ? currentTime
+      : hour.split(' ')[1]; // Если предыдущий час показан, то отображаем текущее время
+
     const cellTime = row.insertCell(0);
-    cellTime.textContent = time; // Устанавливаем только время
+    cellTime.textContent = timeLabel;
     cellTime.className = 'mnemo__modal-report-cell';
 
     const cellRight = row.insertCell(1);
     cellRight.textContent = entry.rightSki;
     cellRight.className = 'mnemo__modal-report-cell';
-    totalRightSki += entry.rightSki; // Добавляем к итогу правого конвейера
+    totalRightSki += entry.rightSki;
 
     const cellLeft = row.insertCell(2);
     cellLeft.textContent = entry.leftSki;
     cellLeft.className = 'mnemo__modal-report-cell';
-    totalLeftSki += entry.leftSki; // Добавляем к итогу левого конвейера
+    totalLeftSki += entry.leftSki;
 
     const cellTotal = row.insertCell(3);
     cellTotal.textContent = entry.totalSki;
     cellTotal.className = 'mnemo__modal-report-cell';
-    totalSki += entry.totalSki; // Добавляем к общей сумме
+    totalSki += entry.totalSki;
 
     const cellWorkTime = row.insertCell(4);
     cellWorkTime.textContent = entry.workTime.toFixed(2);
     cellWorkTime.className = 'mnemo__modal-report-cell';
-    totalWorkTime += entry.workTime; // Добавляем к итогу времени работы
+    totalWorkTime += entry.workTime;
 
     const cellDefect = row.insertCell(5);
     cellDefect.textContent = entry.defect;
     cellDefect.className = 'mnemo__modal-report-cell';
-    totalDefect += entry.defect; // Добавляем к итогу брака
+    totalDefect += entry.defect;
+
     if (entry.defect > 0) {
-      cellDefect.style.backgroundColor = '#ffcccc'; // Окрашиваем дефект в красный
+      cellDefect.style.backgroundColor = '#ffcccc';
+    }
+
+    if (isCurrentHour) {
+      previousHourShown = true;
     }
   }
 
-  // Добавляем итоговую строку
   const footerRow = body.insertRow();
-  footerRow.style.fontWeight = 'bold'; // Делаем итоговую строку жирной
+  footerRow.style.fontWeight = 'bold';
 
   const cellTotalLabel = footerRow.insertCell(0);
   cellTotalLabel.textContent = 'Итого';
@@ -110,7 +122,6 @@ export const dotEkoReportHour = (report) => {
   cellTotalDefect.className = 'mnemo__modal-report-cell';
   cellTotalDefect.style.backgroundColor = '#ff6666';
 
-  // Добавляем таблицу в контейнер
   reportDiv.appendChild(table);
 };
 

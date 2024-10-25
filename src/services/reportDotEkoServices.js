@@ -16,19 +16,19 @@ export const dotEkoReportHour = async (collection) => {
   const hourlyData = {};
 
   data.forEach((entry) => {
-    const hour = moment(entry.timestamp).format('YYYY-MM-DD HH:00');
-    if (!hourlyData[hour]) {
-      hourlyData[hour] = {
+    const adjustedHour = moment(entry.timestamp).add(1, 'hours').format('YYYY-MM-DD HH:00');
+    if (!hourlyData[adjustedHour]) {
+      hourlyData[adjustedHour] = {
         rightSkiReport: [],
         leftSkiReport: [],
         defectReport: [],
         workTime: [],
       };
     }
-    hourlyData[hour].rightSkiReport.push(entry.rightSkiReport);
-    hourlyData[hour].leftSkiReport.push(entry.leftSkiReport);
-    hourlyData[hour].defectReport.push(entry.defect);
-    hourlyData[hour].workTime.push(entry.workTime);
+    hourlyData[adjustedHour].rightSkiReport.push(entry.rightSkiReport);
+    hourlyData[adjustedHour].leftSkiReport.push(entry.leftSkiReport);
+    hourlyData[adjustedHour].defectReport.push(entry.defect);
+    hourlyData[adjustedHour].workTime.push(entry.workTime);
   });
 
   const result = {};
