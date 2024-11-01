@@ -59,9 +59,9 @@ export const readData = async (collection) => {
           shiftTime: roundedShiftTime,
           workTime: roundedWorkTime,
           totalSki: totalSkiValue,
-          totalSkiReport:totalSkiValueReport,
+          totalSkiReport: totalSkiValueReport,
           lineStatusValue: lineStatusValue,
-          lastUpdated: new Date(), // Добавляем время последней записи
+          lastUpdated: new Date(), // Время последней записи
         };
 
         // console.log('Данные', doc);
