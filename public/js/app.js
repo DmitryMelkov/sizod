@@ -52,7 +52,8 @@ async function fetchData() {
     modeDotEKO.textContent =
       data.lineStatusValue !== undefined ? (data.lineStatusValue === 1 ? 'работает' : 'стоит') : 'Нет данных';
     updateGifStatus(data.lineStatusValue);
-    lastUpdatedDotEKO.textContent = data.lastUpdated !== undefined ? data.lastUpdated : 'Нет данных';
+    lastUpdatedDotEKO.textContent = data.lastUpdated ? data.lastUpdated : 'Нет данных';
+
   } catch (error) {
     console.error('Ошибка при получении данных:', error);
   }
