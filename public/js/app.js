@@ -6,7 +6,7 @@ import { fetchHourlyGraph, fetchMonthlyGraph } from './graph.js';
 
 async function fetchData() {
   try {
-    const response = await fetch('/api/mongo-value');
+    const response = await fetch('/api/dot-eko');
     if (!response.ok) {
       throw new Error('Ошибка сети');
     }

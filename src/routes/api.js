@@ -3,10 +3,11 @@ import { dotEkoReportHour, dotEkoReportMonth } from '../services/reportDotEkoSer
 
 const router = Router();
 
-export const apiRoutes = (collection) => {
-  router.get('/mongo-value', async (req, res) => {
+export const apiRoutes = (dotEkoCollection, dotProCollection) => {
+  // Маршрут для получения данных DOT-EKO
+  router.get('/dot-eko', async (req, res) => {
     try {
-      const data = await collection.find().sort({ timestamp: -1 }).limit(1).toArray();
+      const data = await dotEkoCollection.find().sort({ timestamp: -1 }).limit(1).toArray();
       if (data.length > 0) {
         res.json({
           rightSki: data[0].rightSki,
@@ -30,18 +31,46 @@ export const apiRoutes = (collection) => {
           }),
         });
       } else {
-        res.json({ message: 'Нет данных' });
+        res.json({ message: 'Нет данных для DOT-EKO' });
       }
     } catch (err) {
       console.error(err);
-      res.status(500).send('Ошибка получения данных');
+      res.status(500).send('Ошибка получения данных DOT-EKO');
+    }
+  });
+
+  // Маршрут для получения данных DOT-PRO
+  router.get('/dot-pro', async (req, res) => {
+    try {
+      const data = await dotProCollection.find().sort({ timestamp: -1 }).limit(1).toArray();
+      if (data.length > 0) {
+        res.json({
+          endValue: data[0].endValue,
+          reportValue: data[0].reportValue,
+          daylyTime: data[0].daylyTime,
+          monthlyTime: data[0].monthlyTime,
+          lastUpdated: new Date(data[0].lastUpdated).toLocaleString('ru-RU', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+          }),
+        });
+      } else {
+        res.json({ message: 'Нет данных для DOT-PRO' });
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Ошибка получения данных DOT-PRO');
     }
   });
 
   // Новый маршрут для получения часового отчета
   router.get('/hourly-report', async (req, res) => {
     try {
-      const report = await dotEkoReportHour(collection);
+      const report = await dotEkoReportHour(dotEkoCollection);
       res.json(report);
     } catch (err) {
       console.error(err);
@@ -52,7 +81,7 @@ export const apiRoutes = (collection) => {
   // Новый маршрут для получения месячного отчета
   router.get('/monthly-report', async (req, res) => {
     try {
-      const report = await dotEkoReportMonth(collection);
+      const report = await dotEkoReportMonth(dotEkoCollection);
       res.json(report);
     } catch (err) {
       console.error(err);

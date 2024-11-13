@@ -1,28 +1,25 @@
 import express from 'express';
-import { connectToDb } from './config/db.js';
+import { connectToDotEkoDb, connectToDotProDb } from './config/db.js';
 import { apiRoutes } from './routes/api.js';
 import { readData } from './services/modbusService.js';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import { readDataDotPro } from './services/modbusServiceDotPro.js';
 
 const app = express();
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-// Указываем папку для статических файлов
-app.use(express.static(join(__dirname, '../public')));
-
-app.get('/', (req, res) => {
-  const indexPath = join(__dirname, '../public', 'index.html');
-  res.sendFile(indexPath);
-});
+app.use(express.static('public'));
 
 const startServer = async () => {
-  const collection = await connectToDb();
-  app.use('/api', apiRoutes(collection));
-  readData(collection);
+  const dotEkoCollection = await connectToDotEkoDb();
+  const dotProCollection = await connectToDotProDb();
+
+  // Установка маршрутов для DOT-EKO и DOT-PRO с отдельными маршрутами для API
+  app.use('/api', apiRoutes(dotEkoCollection, dotProCollection));
+
+  // Запуск сервисов Modbus для DOT-EKO и DOT-PRO
+  readData(dotEkoCollection);
+  readDataDotPro(dotProCollection);
 
   app.listen(3002, () => {
-    console.log(`Server is running on http://localhost:3002)`);
+    console.log('Сервер работает на http://localhost:3002');
   });
 };
 

@@ -2,10 +2,17 @@ import { MongoClient } from 'mongodb';
 
 const mongoClient = new MongoClient('mongodb://localhost:27017/');
 const dbName = 'sizod';
-const collectionName = 'DOT-EKO';
 
-export const connectToDb = async () => {
+// Подключение к коллекции DOT-EKO
+export const connectToDotEkoDb = async () => {
   await mongoClient.connect();
-  console.log('Подключено к MongoDB');
-  return mongoClient.db(dbName).collection(collectionName);
+  console.log('Подключено к MongoDB для DOT-EKO');
+  return mongoClient.db(dbName).collection('DOT-EKO');
+};
+
+// Подключение к коллекции DOT-PRO
+export const connectToDotProDb = async () => {
+  await mongoClient.connect();
+  console.log('Подключено к MongoDB для DOT-PRO');
+  return mongoClient.db(dbName).collection('DOT-PRO');
 };

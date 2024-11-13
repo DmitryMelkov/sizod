@@ -1,7 +1,7 @@
 import ModbusRTU from 'modbus-serial';
 
 const modbusClient = new ModbusRTU();
-const port = 'COM6';
+const port = 'COM28';
 const baudRate = 57600;
 
 export const readData = async (collection) => {

@@ -155,6 +155,11 @@ export const dotEkoReportMonth = (report) => {
     headerRow.appendChild(cell);
   });
 
+  // Функция для безопасного отображения значений, замена null на 'Нет данных'
+  const safeValue = (value, defaultValue = 'Нет данных') => {
+    return value !== null && value !== undefined ? value : defaultValue;
+  };
+
   // Переменные для итогов
   let totalRightSki = 0;
   let totalLeftSki = 0;
@@ -170,41 +175,41 @@ export const dotEkoReportMonth = (report) => {
 
     const date = new Date(day).toLocaleDateString();
     const cellDate = row.insertCell(0);
-    cellDate.textContent = date; // Устанавливаем только дату
+    cellDate.textContent = date;
     cellDate.className = 'mnemo__modal-report-cell';
 
     const cellRight = row.insertCell(1);
-    cellRight.textContent = entry.rightSki;
+    cellRight.textContent = safeValue(entry.rightSki);
     cellRight.className = 'mnemo__modal-report-cell';
-    totalRightSki += entry.rightSki; // Добавляем к итогу правого конвейера
+    totalRightSki += entry.rightSki || 0;
 
     const cellLeft = row.insertCell(2);
-    cellLeft.textContent = entry.leftSki;
+    cellLeft.textContent = safeValue(entry.leftSki);
     cellLeft.className = 'mnemo__modal-report-cell';
-    totalLeftSki += entry.leftSki; // Добавляем к итогу левого конвейера
+    totalLeftSki += entry.leftSki || 0;
 
     const cellTotal = row.insertCell(3);
-    cellTotal.textContent = entry.totalSki;
+    cellTotal.textContent = safeValue(entry.totalSki);
     cellTotal.className = 'mnemo__modal-report-cell';
-    totalSki += entry.totalSki; // Добавляем к общей сумме
+    totalSki += entry.totalSki || 0;
 
     const cellWorkTime = row.insertCell(4);
-    cellWorkTime.textContent = entry.workTime.toFixed(2);
+    cellWorkTime.textContent = safeValue(entry.workTime ? entry.workTime.toFixed(2) : null); // Округляем до 2 знаков
     cellWorkTime.className = 'mnemo__modal-report-cell';
-    totalWorkTime += entry.workTime; // Добавляем к итогу времени работы
+    totalWorkTime += entry.workTime || 0;
 
     const cellDefect = row.insertCell(5);
-    cellDefect.textContent = entry.defect;
+    cellDefect.textContent = safeValue(entry.defect);
     cellDefect.className = 'mnemo__modal-report-cell';
-    totalDefect += entry.defect; // Добавляем к итогу брака
+    totalDefect += entry.defect || 0;
     if (entry.defect > 0) {
-      cellDefect.style.backgroundColor = '#ffcccc'; // Окрашиваем дефект в красный
+      cellDefect.style.backgroundColor = '#ffcccc';
     }
   }
 
   // Добавляем итоговую строку
   const footerRow = body.insertRow();
-  footerRow.style.fontWeight = 'bold'; // Делаем итоговую строку жирной
+  footerRow.style.fontWeight = 'bold';
 
   const cellTotalLabel = footerRow.insertCell(0);
   cellTotalLabel.textContent = 'Итого';
